@@ -15,13 +15,14 @@ function pr($o = '!this_is_a_placeholder!', $val = '!this_is_an_other_placeholde
 
     $color = '#000';
 
+    // Si aucun n'argument n'est passé, on passe juste une ligne
     if($o === '!this_is_a_placeholder!') {
         echo $addHtml ? '<br />' : "\n";
         return;
     }
 
     //Récupération du nom de la variable (via le backtrace : un peu dégueu mais c'est pour du débuggage)
-    if($val == 'this_is_an_other_placeholder') {
+    if($val == '!this_is_an_other_placeholder!') {
 
         $bt = debug_backtrace();
         $src = file($bt[0]['file']);
@@ -42,7 +43,7 @@ function pr($o = '!this_is_a_placeholder!', $val = '!this_is_an_other_placeholde
     }
 
     //On présente le log sur une nouvelle ligne
-    echo  $addHtml ? '<pre class="debug-pr" style="position:relative;color:$color;font-family:monospace;" >' : '';
+    echo  $addHtml ? '<pre class="debug-pr" style="color:$color;font-family:monospace,monospace;" >' : '';
 
     //Si la valeur passée est dans une variable, on affiche le nom de la variable
     if(substr($label, 0, 1) === '$' && !strpos($label, ' ')) {
@@ -51,10 +52,10 @@ function pr($o = '!this_is_a_placeholder!', $val = '!this_is_an_other_placeholde
 
     //Dans le cas des booléens le cas est particulier
     if($o === true) {
-        echo 'true';
+        echo "true\n";
     }
     else if($o === false) {
-        echo  'false';
+        echo  "false\n";
     }
     //Si la valeur à afficher n'est ni un objet, ni un tableau, ni un booléen, on l'affiche tel quelle
     else if(!is_object($o) && !is_array($o)) {
@@ -64,7 +65,7 @@ function pr($o = '!this_is_a_placeholder!', $val = '!this_is_an_other_placeholde
             var_dump($o);
         }
         else {
-            echo $o;
+            echo $o . "\n";
         }
     }
     //Si la valeur est un tableau ou un objet, on fait un print_r
