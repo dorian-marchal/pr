@@ -7,36 +7,34 @@
  *
  * @version 1
  */
-function pr($o = "!this_is_a_placeholder!", $val = "!this_is_an_other_placeholder!") {
+function pr($o = '!this_is_a_placeholder!', $val = '!this_is_an_other_placeholder!') {
 
-    if (php_sapi_name() == "cli") {
-        $cli = true;
-    } else {
-        $cli = false;
-    }
+    $isCli = isCli();
+    $isAjax = isAjax();
+    $addHtml = !$isCli && !$isAjax;
 
-    $color = "#000";
+    $color = '#000';
 
-    if($o === "!this_is_a_placeholder!") {
-        echo $cli ? "\n" : "<br />";
+    if($o === '!this_is_a_placeholder!') {
+        echo $addHtml ? '<br />' : "\n";
         return;
     }
 
     //Récupération du nom de la variable (via le backtrace : un peu dégueu mais c'est pour du débuggage)
-    if($val == "this_is_an_other_placeholder") {
+    if($val == 'this_is_an_other_placeholder') {
 
         $bt = debug_backtrace();
-        $src = file($bt[0]["file"]);
-        $line = $src[ $bt[0]['line'] - 1 ];
+        $src = file($bt[0]['file']);
+        $line = $src[$bt[0]['line'] - 1];
 
-        preg_match( "#pr\((.+)\)#", $line, $match );
+        preg_match('#pr\((.+)\)#', $line, $match);
 
         $max = strlen($match[1]);
-        $varname = "";
+        $varname = '';
         $c = 0;
         for($i = 0; $i < $max; $i++){
-            if(     $match[1]{$i} == "(" ) $c++;
-            elseif( $match[1]{$i} == ")" ) $c--;
+            if(     $match[1]{$i} == '(' ) $c++;
+            elseif( $match[1]{$i} == ')' ) $c--;
             if($c < 0) break;
             $varname .=  $match[1]{$i};
         }
@@ -44,11 +42,11 @@ function pr($o = "!this_is_a_placeholder!", $val = "!this_is_an_other_placeholde
     }
 
     //On présente le log sur une nouvelle ligne
-    echo  $cli ? '' : "<pre class='debug-pr' style='position:relative;color:$color;font-family:monospace;' >";
+    echo  $addHtml ? '<pre class="debug-pr" style="position:relative;color:$color;font-family:monospace;" >' : '';
 
     //Si la valeur passée est dans une variable, on affiche le nom de la variable
     if(substr($label, 0, 1) === '$' && !strpos($label, ' ')) {
-        echo $cli ? "$label: " : "<strong>$label: </strong>";
+        echo $addHtml ? "<strong>$label: </strong>" : "$label: ";
     }
 
     //Dans le cas des booléens le cas est particulier
@@ -79,5 +77,26 @@ function pr($o = "!this_is_a_placeholder!", $val = "!this_is_an_other_placeholde
 
         echo print_r($o, true);
     }
-    echo $cli ? '' : '</pre>';
+    echo $addHtml ? '</pre>' : '';
 }
+
+/**
+ * Retourne true si le script est exécuté depuis la ligne de commande.
+ */
+function isCli() {
+    return php_sapi_name() === 'cli';
+}
+
+/**
+ * Retourne true si le script est appelé en AJAX
+ * /!\ Cette fonction n'est pas sûre.
+ */
+function isAjax() {
+
+    $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH'])
+        && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+
+    return $isAjax;
+}
+
+?>
