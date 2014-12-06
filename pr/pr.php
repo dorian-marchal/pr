@@ -43,7 +43,7 @@ function pr($o = '!this_is_a_placeholder!', $val = '!this_is_an_other_placeholde
     }
 
     //On présente le log sur une nouvelle ligne
-    echo  $addHtml ? '<pre class="debug-pr" style="color:$color;font-family:monospace,monospace;" >' : '';
+    echo  $addHtml ? '<pre class="debug-pr" style="color:$color;font-family:monospace;" >' : '';
 
     //Si la valeur passée est dans une variable, on affiche le nom de la variable
     if(substr($label, 0, 1) === '$' && !strpos($label, ' ')) {
