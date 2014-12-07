@@ -2,29 +2,31 @@
 
 require_once('pr.php');
 
-//Booléens
+// Booléens
 $bool = true;
 pr($bool);
 pr(false);
 
-//On passe une ligne
-pr();
-
-//Entiers / Flottants / String dans des variables
+// Entiers / Flottants
 $int = 4;
 $float = 1.45;
-$string = 'Chaîne de test';
 pr($int);
 pr($float);
-pr($string);
+pr(42);
+pr(1.41421356237);
 
-//Entiers / Flottants / String hors variables
-pr(4);
-pr(1.45);
-pr('Chaîne de test');
+// Chaînes de caractères
+$string = 'test';
+pr($string);
+pr("Autre chaîne de $string");
+
+// On passe une ligne
+pr();
 
 //Objets et tableaux
-$array = array("toast", 15, 28, new DateTime('2012-12-21', new DateTimeZone('Europe/Paris')));
+$date = new DateTime('2012-12-21', new DateTimeZone('Europe/Paris'));
+$array = array($string, $int, $float, $date);
+pr($date);
 pr($array);
 
 ?>
