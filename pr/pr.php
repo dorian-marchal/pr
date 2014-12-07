@@ -7,7 +7,7 @@
  *
  * @version 1
  */
-function pr($o = '!this_is_a_placeholder!', $val = '!this_is_an_other_placeholder!') {
+function pr($o = "\n", $val = '!this_is_an_other_placeholder!') {
 
     $isCli = isCli();
     $isAjax = isAjax();
@@ -15,14 +15,14 @@ function pr($o = '!this_is_a_placeholder!', $val = '!this_is_an_other_placeholde
 
     $color = '#000';
 
-    // Si aucun n'argument n'est passé, on passe juste une ligne
-    if($o === '!this_is_a_placeholder!') {
-        echo $addHtml ? '<br />' : "\n";
+    // Cas particulier du passage à la ligne
+    if ($o === "\n") {
+        echo $o;
         return;
     }
 
     //Récupération du nom de la variable (via le backtrace : un peu dégueu mais c'est pour du débuggage)
-    if($val == '!this_is_an_other_placeholder!') {
+    if($val === '!this_is_an_other_placeholder!') {
 
         $bt = debug_backtrace();
         $src = file($bt[0]['file']);
@@ -31,15 +31,21 @@ function pr($o = '!this_is_a_placeholder!', $val = '!this_is_an_other_placeholde
         preg_match('#pr\((.+)\)#', $line, $match);
 
         $max = strlen($match[1]);
-        $varname = '';
+        $label = '';
         $c = 0;
-        for($i = 0; $i < $max; $i++){
-            if(     $match[1]{$i} == '(' ) $c++;
-            elseif( $match[1]{$i} == ')' ) $c--;
-            if($c < 0) break;
-            $varname .=  $match[1]{$i};
+
+        for ($i = 0; $i < $max; $i++) {
+            if ($match[1]{$i} == '(' ) {
+                $c++;
+            }
+            else if ( $match[1]{$i} == ')' ) {
+                $c--;
+            }
+            if ($c < 0) {
+                break;
+            }
+            $label .=  $match[1]{$i};
         }
-        $label = $varname;
     }
 
     //On présente le log sur une nouvelle ligne
