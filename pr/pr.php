@@ -7,22 +7,16 @@
  *
  * @version 1
  */
-function pr($o = "\n", $val = '!this_is_an_other_placeholder!') {
+function pr($o = '', $val = '!this_is_a_placeholder!') {
 
     $isCli = isCli();
     $isAjax = isAjax();
     $addHtml = !$isCli && !$isAjax;
 
-    $color = '#000';
+    $label = '';
 
-    // Cas particulier du passage à la ligne
-    if ($o === "\n") {
-        echo $o;
-        return;
-    }
-
-    //Récupération du nom de la variable (via le backtrace : un peu dégueu mais c'est pour du débuggage)
-    if($val === '!this_is_an_other_placeholder!') {
+    //Récupération du nom de la variable (via la backtrace : un peu crade mais c'est pour du débuggage)
+    if($val === '!this_is_a_placeholder!' && !empty($o)) {
 
         $bt = debug_backtrace();
         $src = file($bt[0]['file']);
@@ -49,7 +43,7 @@ function pr($o = "\n", $val = '!this_is_an_other_placeholder!') {
     }
 
     //On présente le log sur une nouvelle ligne
-    echo  $addHtml ? '<pre class="debug-pr" style="color:$color;font-family:monospace;" >' : '';
+    echo  $addHtml ? '<pre class="debug-pr" style="color:black;font-family:monospace;" >' : '';
 
     //Si la valeur passée est dans une variable, on affiche le nom de la variable
     if(substr($label, 0, 1) === '$' && !strpos($label, ' ')) {
