@@ -8,16 +8,19 @@
  *
  * @version 1
  */
-function pr($o = '', $val = '!this_is_a_placeholder!') {
+function pr($o = '') {
+
+    $enableTerminalColor = true;
 
     $isCli = isCli();
     $isAjax = isAjax();
     $addHtml = !$isCli && !$isAjax;
+    $terminalColor = $enableTerminalColor && $isCli;
 
     $label = '';
 
     // Récupération du nom de la variable (via la backtrace : un peu crade mais c'est pour du débuggage)
-    if($val === '!this_is_a_placeholder!' && !empty($o)) {
+    if(!empty($o)) {
 
         $bt = debug_backtrace();
         $src = file($bt[0]['file']);
@@ -57,7 +60,12 @@ function pr($o = '', $val = '!this_is_a_placeholder!') {
         echo "<strong>$label: </strong>";
     }
     else {
-        echo "$label: ";
+        if ($terminalColor) {
+            echo "\033[1;34m$label:\033[0m ";
+        }
+        else {
+            echo "$label: ";
+        }
     }
 
     // Dans le cas des booléens on affiche explicitement 'true' ou 'false'
