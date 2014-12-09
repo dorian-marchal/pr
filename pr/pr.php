@@ -3,6 +3,7 @@
 /**
  * Fonction utilisée pour le débuggage.
  * Formate le résultat différemment en fonction de ce qui est passé en argument (array, object, string, int, boolean, ...)
+ * Attention, ne fonctionne pas si la fonction est appelée plusieurs fois sur la même ligne.
  * Voir la doc dans README.md pour plus d'infos
  *
  * @version 1
@@ -29,16 +30,16 @@ function pr($o = '', $val = '!this_is_a_placeholder!') {
         $c = 0;
 
         for ($i = 0; $i < $max; $i++) {
-            if ($match[1]{$i} == '(' ) {
+            if ($match[1][$i] === '(') {
                 $c++;
             }
-            else if ( $match[1]{$i} == ')' ) {
+            else if ($match[1][$i] === ')') {
                 $c--;
             }
             if ($c < 0) {
                 break;
             }
-            $label .=  $match[1]{$i};
+            $label .=  $match[1][$i];
         }
     }
 
