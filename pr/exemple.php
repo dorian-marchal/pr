@@ -5,15 +5,12 @@ require_once('pr.php');
 // Booléens
 $bool = true;
 pr($bool);
-pr(false);
 
 // Entiers / Flottants
 $int = 4;
 $float = 1.45;
 pr($int);
 pr($float);
-pr(42);
-pr(1.41421356237);
 
 // Chaînes de caractères
 $string = 'test';
