@@ -16,7 +16,7 @@ function pr($o = '', $val = '!this_is_a_placeholder!') {
 
     $label = '';
 
-    //Récupération du nom de la variable (via la backtrace : un peu crade mais c'est pour du débuggage)
+    // Récupération du nom de la variable (via la backtrace : un peu crade mais c'est pour du débuggage)
     if($val === '!this_is_a_placeholder!' && !empty($o)) {
 
         $bt = debug_backtrace();
@@ -44,45 +44,44 @@ function pr($o = '', $val = '!this_is_a_placeholder!') {
         }
     }
 
+    // Si on a juste passé une chaîne à la fonction, on l'affiche simplement
+    $firstChar = substr($label, 0, 1);
+    if ($firstChar === false || ($firstChar === '\'' ||  $firstChar === '"')) {
+        echo $o . "\n";
+        return;
+    }
+
     // Si on affiche le log dans une page web, on le wrappe dans un <pre>
     if ($addHtml) {
         echo '<pre class="debug-pr" style="color:black;font-family:monospace;" >';
+        echo "<strong>$label: </strong>";
     }
-
-    //Si la valeur passée est dans une variable, on affiche le nom de la variable
-    if(substr($label, 0, 1) === '$' && !strpos($label, ' ')) {
-        echo $addHtml ? "<strong>$label: </strong>" : "$label: ";
-    }
-
-    //Dans le cas des booléens le cas est particulier
-    if($o === true) {
-        echo "true\n";
-    }
-    else if($o === false) {
-        echo  "false\n";
-    }
-    //Si la valeur à afficher n'est ni un objet, ni un tableau, ni un booléen, on l'affiche tel quelle
-    else if(!is_object($o) && !is_array($o)) {
-
-        //Si la valeur n'est pas passée dans une variable, on l'affiche tel quelle, sinon on fait un vardump
-        if(substr($label, 0, 1) === '$' && !strpos($label, ' ')) {
-            var_dump($o);
-        }
-        else {
-            echo $o . "\n";
-        }
-    }
-    //Si la valeur est un tableau ou un objet, on fait un print_r
     else {
+        echo "$label: ";
+    }
 
-        //Si c'est un tableau, on affiche le nombre d'éléments
-        if(is_array($o)) {
+    // Dans le cas des booléens on affiche explicitement 'true' ou 'false'
+    if ($o === true || $o === false) {
+        echo ($o ? 'true' : 'false') . "\n";
+    }
+    // Dans le cas des tableaux ou des objets, on fait un print_r
+    else if (is_object($o) || is_array($o)) {
+
+        // Si c'est un tableau, on affiche en plus le nombre d'éléments
+        if (is_array($o)) {
             echo '{' . count($o) . '} ';
         }
 
         echo print_r($o, true);
     }
-    echo $addHtml ? '</pre>' : '';
+    // Dans tous les autres cas, on fait un var_dump
+    else {
+        var_dump($o);
+    }
+
+    if ($addHtml) {
+        echo '</pre>';
+    }
 }
 
 /**
