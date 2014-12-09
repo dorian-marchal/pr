@@ -15,7 +15,7 @@ pr($float);
 // Chaînes de caractères
 $string = 'test';
 pr($string);
-pr("Autre chaîne de $string");
+pr("Chaîne de $string sans variable");
 
 // On passe une ligne
 pr();
@@ -25,6 +25,12 @@ function ftest($e) {
     return $e;
 }
 pr(ftest("fonction"));
+
+// Concaténation et somme
+pr(ftest("debut") . ' ' . $string);
+pr($int + $float);
+
+pr();
 
 // Deux appels sur une seule ligne
 $deux = 'deux appels sur une même ligne';
