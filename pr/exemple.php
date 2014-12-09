@@ -23,6 +23,19 @@ pr("Autre chaîne de $string");
 // On passe une ligne
 pr();
 
+// Avec une fonction
+function ftest($e) {
+    return $e;
+}
+pr(ftest("fonction"));
+
+// Deux appels sur une seule ligne
+$deux = 'deux appels sur une même ligne';
+$aie = 'ça fonctionne mal, le label n\'est pas le bon !';
+pr($deux);pr($aie);
+
+pr();
+
 //Objets et tableaux
 $date = new DateTime('2012-12-21', new DateTimeZone('Europe/Paris'));
 $array = array($string, $int, $float, $date);
