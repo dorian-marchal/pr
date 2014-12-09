@@ -29,6 +29,7 @@ function pr($o = '', $val = '!this_is_a_placeholder!') {
         $label = '';
         $c = 0;
 
+        // On s'assure que le label a été bien parsé
         for ($i = 0; $i < $max; $i++) {
             if ($match[1][$i] === '(') {
                 $c++;
@@ -43,8 +44,10 @@ function pr($o = '', $val = '!this_is_a_placeholder!') {
         }
     }
 
-    //On présente le log sur une nouvelle ligne
-    echo  $addHtml ? '<pre class="debug-pr" style="color:black;font-family:monospace;" >' : '';
+    // Si on affiche le log dans une page web, on le wrappe dans un <pre>
+    if ($addHtml) {
+        echo '<pre class="debug-pr" style="color:black;font-family:monospace;" >';
+    }
 
     //Si la valeur passée est dans une variable, on affiche le nom de la variable
     if(substr($label, 0, 1) === '$' && !strpos($label, ' ')) {
@@ -74,7 +77,7 @@ function pr($o = '', $val = '!this_is_a_placeholder!') {
 
         //Si c'est un tableau, on affiche le nombre d'éléments
         if(is_array($o)) {
-            echo '[' . count($o) . '] ';
+            echo '{' . count($o) . '} ';
         }
 
         echo print_r($o, true);
