@@ -9,7 +9,7 @@ php-util
 
 Fonction globale utilisée pour afficher des variables dans une page ou en ligne de commande. C'est un genre de mix entre `pr` et `var_dump`.
 
-[Répertoire de la fonction](pr/)
-[Voir la doc](pr/PR-README.md)
+- [Répertoire de la fonction](pr/)
+- [Voir la doc](pr/PR-README.md)
 
 ---
