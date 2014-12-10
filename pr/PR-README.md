@@ -24,12 +24,12 @@ Dans le cas des tableaux, `pr` affiche le nombre d'éléments du tableau avant c
 
 ### Afficher une simple chaîne de caractères
 
-Pour faciliter le debuggage, si une chaîne de caractère est passée à la fonction, celle-ci est affichée simplement.
+Pour faciliter le debuggage, si une chaîne de caractères est passée à la fonction, celle-ci est affichée simplement.
 Ces deux lignes sont donc équivalentes :
 
 ```c
-pr('ma chaîne de caractère');
-echo "ma chaîne de caractère\n";
+pr('ma chaîne de caractères');
+echo "ma chaîne de caractères\n";
 ```
 
 
