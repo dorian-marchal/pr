@@ -23,7 +23,7 @@ function pr($o = '') {
     $label = '';
 
     // Récupération du nom de la variable (via la backtrace : un peu crade mais c'est pour du débuggage)
-    if($o !== '') {
+    if ($o !== '') {
 
         $bt = debug_backtrace();
         $src = file($bt[0]['file']);
@@ -33,10 +33,23 @@ function pr($o = '') {
         $label =  $match[1];
     }
 
-    // Si on a juste passé une chaîne à la fonction, on l'affiche simplement
     $firstChar = substr($label, 0, 1);
-    if ($firstChar === false || ($firstChar === '\'' ||  $firstChar === '"')) {
-        echo $o . "\n";
+
+    // Si la fonction a été appelée sans paramètre, on passe juste une ligne
+    if ($firstChar === false) {
+        // Un <br> en html
+        if ($addHtml) {
+            echo '<br>';
+        }
+        // Un \n ailleurs
+        else {
+            echo "\n";
+        }
+        return;
+    }
+    // Sinon, si on a juste passé une chaîne à la fonction, on l'affiche simplement
+    else if ($firstChar === '\'' ||  $firstChar === '"') {
+        echo $o;
         return;
     }
 
