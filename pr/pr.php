@@ -15,36 +15,22 @@ function pr($o = '') {
     $isCli = isCli();
     $isAjax = isAjax();
     $addHtml = !$isCli && !$isAjax;
-    $terminalColor = $enableTerminalColor && $isCli;
+    $addTerminalColor = $enableTerminalColor && $isCli;
+
+    $valueIsObject = is_object($o);
+    $valueIsArray = is_array($o);
 
     $label = '';
 
     // Récupération du nom de la variable (via la backtrace : un peu crade mais c'est pour du débuggage)
-    if(!empty($o)) {
+    if($o !== '') {
 
         $bt = debug_backtrace();
         $src = file($bt[0]['file']);
         $line = $src[$bt[0]['line'] - 1];
 
         preg_match('#pr\((.+)\)#', $line, $match);
-
-        $max = strlen($match[1]);
-        $label = '';
-        $c = 0;
-
-        // On s'assure que le label a été bien parsé
-        for ($i = 0; $i < $max; $i++) {
-            if ($match[1][$i] === '(') {
-                $c++;
-            }
-            else if ($match[1][$i] === ')') {
-                $c--;
-            }
-            if ($c < 0) {
-                break;
-            }
-            $label .=  $match[1][$i];
-        }
+        $label =  $match[1];
     }
 
     // Si on a juste passé une chaîne à la fonction, on l'affiche simplement
@@ -59,24 +45,19 @@ function pr($o = '') {
         echo '<pre class="debug-pr" style="color:black;font-family:monospace;" >';
         echo "<strong>$label: </strong>";
     }
+    // Sinon, si on doit ajouter des couleurs pour le shell
+    else if ($addTerminalColor) {
+        echo "\033[1;34m$label:\033[0m ";
+    }
     else {
-        if ($terminalColor) {
-            echo "\033[1;34m$label:\033[0m ";
-        }
-        else {
-            echo "$label: ";
-        }
+        echo "$label: ";
     }
 
-    // Dans le cas des booléens on affiche explicitement 'true' ou 'false'
-    if ($o === true || $o === false) {
-        echo ($o ? 'true' : 'false') . "\n";
-    }
     // Dans le cas des tableaux ou des objets, on fait un print_r
-    else if (is_object($o) || is_array($o)) {
+    if ($valueIsObject || $valueIsArray) {
 
         // Si c'est un tableau, on affiche en plus le nombre d'éléments
-        if (is_array($o)) {
+        if ($valueIsArray) {
             echo '{' . count($o) . '} ';
         }
 
