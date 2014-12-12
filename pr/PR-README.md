@@ -67,11 +67,16 @@ $myArray: {4} Array
 Pour faciliter le debuggage, si une chaîne de caractères est passée à la fonction, celle-ci est affichée simplement.
 Ces deux lignes sont donc équivalentes :
 
-```c
+```php
 pr('ma chaîne de caractères');
 echo "ma chaîne de caractères\n";
 ```
 
+*Sortie :*
+
+```
+ma chaîne de caractères
+```
 
 ---
 
