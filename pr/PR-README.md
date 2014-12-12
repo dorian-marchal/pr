@@ -23,7 +23,9 @@ pr($maChaine);
 
 *Sortie :*
 
-> __$maChaine:__ string(4) "test"
+```
+$maChaine: string(4) "test"
+```
 
 
 ---
@@ -32,6 +34,31 @@ pr($maChaine);
 
 Les objets et tableaux sont affichés avec la fonction `print_r`.
 Dans le cas des tableaux, `pr` affiche le nombre d'éléments du tableau avant celui-ci.
+
+*Exemple :*
+
+```php
+$myObject = new DateTime('2012-12-21', new DateTimeZone('Europe/Paris'));
+$myArray = array('test', 4, 1.45, $myObject);
+pr($myArray);
+```
+
+*Sortie :*
+
+```
+$myArray: {4} Array
+(
+    [0] => test
+    [1] => 4
+    [2] => 1.45
+    [3] => DateTime Object
+        (
+            [date] => 2012-12-21 00:00:00
+            [timezone_type] => 3
+            [timezone] => Europe/Paris
+        )
+)
+```
 
 ---
 
