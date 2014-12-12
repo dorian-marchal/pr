@@ -21,7 +21,7 @@ pr($maChaine);
 pr();
 
 // Chaîne simple (non wrappée dans une expression)
-pr("Chaîne de $string sans variable");
+pr("Chaîne de $maChaine sans variable");
 
 pr();
 
@@ -32,7 +32,7 @@ function fonctionDeTest($e) {
 pr(fonctionDeTest("fonction"));
 
 // Concaténation et somme
-pr(fonctionDeTest("debut") . ' ' . $string);
+pr(fonctionDeTest("debut") . ' ' . $maChaine);
 pr($int + $float);
 
 pr();
@@ -46,7 +46,7 @@ pr();
 
 //Objets et tableaux
 $myObject = new DateTime('2012-12-21', new DateTimeZone('Europe/Paris'));
-$myArray = array($string, $int, $float, $myObject);
+$myArray = array($maChaine, $int, $float, $myObject);
 pr($myObject);
 pr($myArray);
 
