@@ -93,8 +93,16 @@ Ceci peut être fait simplement en appelant `pr` sans paramètre.
 En fonction du contexte d'appel de la fonction, le format de sortie de `pr` est différent.
 Aperçu de la sortie avec un des exemples ci-dessus :
 
-- Depuis un appel AJAX
-- Depuis la ligne de commande
-- Tous les autres appels (sortie HTML)
+- __Depuis un appel AJAX__
+
+La sortie est simple pour ne pas encombrer l'affichage dans l'onglet "Réseau" du navigateur.
+
+- __Depuis la ligne de commande__
+
+Des couleurs sont ajoutées pour mieux séparer le label de la valeur.
+
+- __Tous les autres appels (sortie HTML)__
+
+La sortie est wrappée dans une balise `pre` pour conserver l'indentation de `print_r`. De plus, la classe `.debug-pr` permet de styliser les logs en CSS.
 
 ---
