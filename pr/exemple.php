@@ -14,8 +14,8 @@ pr($int);
 pr($float);
 
 // Chaînes de caractères
-$string = 'test';
-pr($string);
+$maChaine = 'test';
+pr($maChaine);
 
 // On passe une ligne
 pr();

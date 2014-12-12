@@ -14,10 +14,23 @@ Le code n'est pas très propre (par exemple, il est impossible d'appeler deux fo
 
 `pr` affiche l'expression passée en paramètre avant sa valeur.
 
+*Exemple :*
+
+```php
+$maChaine = 'test';
+pr($maChaine);
+```
+
+*Sortie :*
+
+> __$maChaine:__ string(4) "test"
+
+
 ---
 
 ### Afficher un tableau ou un objet
 
+Les objets et tableaux sont affichés avec la fonction `print_r`.
 Dans le cas des tableaux, `pr` affiche le nombre d'éléments du tableau avant celui-ci.
 
 ---
