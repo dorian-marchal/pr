@@ -97,12 +97,18 @@ Aperçu de la sortie avec un des exemples ci-dessus :
 
 La sortie est simple pour ne pas encombrer l'affichage dans l'onglet "Réseau" du navigateur.
 
+![Sortie AJAX](http://www.dorian-marchal.com/assets/ajax-output.png)
+
 - __Depuis la ligne de commande__
 
 Des couleurs sont ajoutées pour mieux séparer le label de la valeur.
 
+![Sortie Terminal](http://www.dorian-marchal.com/assets/terminal-output.png)
+
 - __Tous les autres appels (sortie HTML)__
 
 La sortie est wrappée dans une balise `pre` pour conserver l'indentation de `print_r`. De plus, la classe `.debug-pr` permet de styliser les logs en CSS.
+
+![Sortie HTML](http://www.dorian-marchal.com/assets/html-output.png)
 
 ---
