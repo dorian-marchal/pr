@@ -84,7 +84,7 @@ ma chaîne de caractères
 
 Parfois, il peut être intéressant de séparer plusieurs groupes de `pr` (par exemple, pour afficher des groupes de valeurs dans une boucle et conserver une certaine lisibilité).
 
-Ceci peut être fait simplement en appelant `pr` sans paramètre.
+Ceci peut être fait simplement en appelant `pr` sans lui passer de paramètre.
 
 ---
 
