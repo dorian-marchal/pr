@@ -23,15 +23,12 @@ function pr($o = '') {
     $label = '';
 
     // Récupération du nom de la variable (via la backtrace : un peu crade mais c'est pour du débuggage)
-    if ($o !== '') {
+    $bt = debug_backtrace();
+    $src = file($bt[0]['file']);
+    $line = $src[$bt[0]['line'] - 1];
 
-        $bt = debug_backtrace();
-        $src = file($bt[0]['file']);
-        $line = $src[$bt[0]['line'] - 1];
-
-        preg_match('#pr\((.+)\)#', $line, $match);
-        $label =  $match[1];
-    }
+    preg_match('#pr\((.*)\)#', $line, $match);
+    $label =  $match[1];
 
     $firstChar = substr($label, 0, 1);
 
