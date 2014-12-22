@@ -50,4 +50,6 @@ $myArray = array($maChaine, $int, $float, $myObject);
 pr($myObject);
 pr($myArray);
 
+// Exemple avec la fonction ph (affichera de l'html, même via un appel AJAX)
+ph($maChaine);
 ?>
