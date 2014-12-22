@@ -8,13 +8,13 @@
  *
  * @version 1
  */
-function pr($o = '') {
+function pr($o = '', $calledByPh = false) {
 
     $enableTerminalColor = true;
 
     $isCli = isCli();
     $isAjax = isAjax();
-    $addHtml = !$isCli && !$isAjax;
+    $addHtml = !$isCli && (!$isAjax || $calledByPh);
     $addTerminalColor = $enableTerminalColor && $isCli;
 
     $valueIsObject = is_object($o);
@@ -24,11 +24,15 @@ function pr($o = '') {
 
     // Récupération du nom de la variable (via la backtrace : un peu crade mais c'est pour du débuggage)
     $bt = debug_backtrace();
-    $src = file($bt[0]['file']);
-    $line = $src[$bt[0]['line'] - 1];
 
-    preg_match('#pr\((.*)\)#', $line, $match);
-    $label =  $match[1];
+    // Si pr est appelée via pa, on récupère le second niveau de la backtrace
+    $btIndex = $calledByPh ? 1 : 0;
+
+    $src = file($bt[$btIndex]['file']);
+    $line = $src[$bt[$btIndex]['line'] - 1];
+
+    preg_match('#p[rh]\((.*)\)#', $line, $match);
+    $label = $match[1];
 
     $firstChar = substr($label, 0, 1);
 
@@ -81,6 +85,13 @@ function pr($o = '') {
     if ($addHtml) {
         echo '</pre>';
     }
+}
+
+/**
+ * Appelle pr en forçant l'HTML
+ */
+function ph($o = '') {
+    pr($o, true);
 }
 
 /**
