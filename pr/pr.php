@@ -50,7 +50,14 @@ function pr($o = '', $calledByPh = false) {
     }
     // Sinon, si on a juste passé une chaîne à la fonction, on l'affiche simplement
     else if ($firstChar === '\'' ||  $firstChar === '"') {
-        echo $o;
+        // Un <br> en html
+        if ($addHtml) {
+            echo "$o<br>";
+        }
+        // Un \n ailleurs
+        else {
+            echo "$o\n";
+        }
         return;
     }
 
