@@ -1,6 +1,6 @@
 <?php
 
-require_once('pr.php');
+require_once dirname(__FILE__) . '/../pr.php';
 
 // Booléens
 $bool = true;
