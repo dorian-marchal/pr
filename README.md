@@ -4,6 +4,8 @@ Cette fonction globale permet d'afficher des variables dans une page ou en ligne
 La fonction permet d'afficher le nom de la variable dumpée juste avant sa valeur.
 Le code n'est pas très propre (par exemple, il est impossible d'appeler deux fois la fonction sur la même ligne) mais pour du débuggage, ça fait le job.
 
+__Note :__ Je n'utilise plus `pr` depuis que j'ai découvert [Kint](http://raveren.github.io/kint/)
+
 ## Utilisation et exemples
 
 *Tous les exemples ci-dessous apparaissent dans [le fichier d'exemple](examples/examples.php)*
